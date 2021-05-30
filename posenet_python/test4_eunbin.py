@@ -64,6 +64,10 @@ def squat_down(person_height, angle_tuple, pelvis_knee_gap, angle_save):
     global squat_count
 
     gap = angle_tuple['L knee'][1] - angle_tuple['L pelvis'][1]
+
+    knee_gap = angle_tuple['L knee'][0] - angle_tuple['R knee'][0]
+    shoulder_gap = angle_tuple['L shoulder'][0] - angle_tuple['R shoulder'][0]
+
     height = angle_tuple['L ankle'][1] - angle_tuple['L eye'][1]
 
     if len(pelvis_knee_gap) > 3: #어느정도 프레임이 지난 후 실행
@@ -85,6 +89,10 @@ def squat_down(person_height, angle_tuple, pelvis_knee_gap, angle_save):
                 print('기다립니다',gap)
 
             elif pelvis_knee_gap[-2] > gap: #내려갑니다
+
+                if knee_gap < shoulder_gap:
+                    print('무릎 벌리세요')
+
                 if angle_save['L knee'] > 115 and angle_save['R knee'] > 115:
                     print('낮추세요')
                 elif (90 <= angle_save['L knee'] < 90 * 1.2 or 
@@ -510,7 +518,7 @@ class MyWindow(QMainWindow, form_class):
                                     str(int(time_count)),
                                     (50, 80), cv2.FONT_HERSHEY_DUPLEX, 1.5, (0,0,0), 1, cv2.LINE_AA)
                             
-                            if time_count > 1:
+                            if time_count > 0:
                                 real_start = True
                                 height = angle_tuple['L ankle'][1] - angle_tuple['L eye'][1]
 
