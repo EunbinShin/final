@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
 from PyQt5 import QtCore, uic
 import pyttsx3
+import datetime
 
 #-------------------------------------------import 구역
 import cv2
@@ -45,7 +46,6 @@ count_flag = False
 squat_count = 0
 knee_flag = False
 squat_set = 0
-
 
 def angle_between(x1,y1, x2, y2, x3,y3): #세 x,y로 각도를 구하는 방식
     deg1 = (360 + degrees(atan2(x1 - x2, y1 - y2))) % 360
@@ -96,6 +96,7 @@ def check_feet_width(left_shoulder_x, right_shoulder_x, left_ankle_x, right_ankl
     feet_gap = shoulder_width / ankle_width
     return feet_gap
 
+knee_list = []
 
 def squat_down(angle, angles_arr, squat_knee_angle, left_knee_angle, right_knee_angle, left_hip_gap, right_hip_gap, knee_gap):
     global color
@@ -107,11 +108,14 @@ def squat_down(angle, angles_arr, squat_knee_angle, left_knee_angle, right_knee_
     global rest_flag
     global set_flag
     global knee_flag
-    
+    ###################
+    global knee_list
+
     # 내려갔을 때
     if len(angles_arr)>10:
         if mean(angles_arr[-10:-5]) < mean(angles_arr[-5:]) and angle > angles_arr[0] + 5 :
-
+            knee_list.append((right_knee_angle+left_knee_angle)/2)
+            
             if left_knee_angle > squat_knee_angle * 1.2 and right_knee_angle > squat_knee_angle * 1.2: 
                 test="Lower"
                 color = (0,0,250)
@@ -130,6 +134,8 @@ def squat_down(angle, angles_arr, squat_knee_angle, left_knee_angle, right_knee_
 
         # 올라올 때
         if mean(angles_arr[-10:-5]) > mean(angles_arr[-5:]):
+            knee_list.append((right_knee_angle+left_knee_angle)/2)
+            
             # 내려갔다 올라와서 멈출 때
             if np.median(angles_arr[:5])*0.95 <= angle <= np.median(angles_arr[:5]) * 1.05: #완전히 "섰다"의 인식이 쫌 여유가 있는 듯 
                 
@@ -298,7 +304,7 @@ rest_form = uic.loadUiType('ui/rest_ui.ui')[0]
 login_form = uic.loadUiType('ui/login_ui.ui')[0]
 success_form = uic.loadUiType('ui/success_ui.ui')[0]
 
-#########################################################
+#####################SESSION####################################
 user_id = ""
 #########################################################
 
@@ -312,8 +318,21 @@ class SuccessWindow(QDialog, success_form):
 
     def end_program(self):
         global set_flag
+        global user_id
+        global CUSTOM_SQUAT_SET
+        global CUSTOM_SQUAT_COUNT
 
         print('프로그램 종료')
+
+        if user_id != '': #로그인 되어있는 상태라면
+            #DB에 데이터 보냄
+            login.insert_set_and_count(user_id, CUSTOM_SQUAT_SET, CUSTOM_SQUAT_COUNT)
+
+        if user_id != "":#로그인 되어있는 상태라면
+            #DB에 데이터 보냄
+            for i in range(len(knee_list)):
+                login.insert_knee_angle('eunbin', knee_list[i], i)
+
         set_flag = False
         return self.close()
 
@@ -322,6 +341,8 @@ class SuccessWindow(QDialog, success_form):
 
 class RestWindow(QDialog, rest_form):
     def __init__(self):
+        global knee_list
+
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle('Rest Time')
@@ -336,6 +357,13 @@ class RestWindow(QDialog, rest_form):
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.timeout)
         self.timer.start()
+
+        if user_id != "":#로그인 되어있는 상태라면
+            #DB에 데이터 보냄
+            for i in range(len(knee_list)):
+                login.insert_knee_angle('eunbin', knee_list[i], i)
+
+        knee_list = []
 
     def timeout(self):
         global rest_flag

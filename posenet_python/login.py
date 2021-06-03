@@ -21,3 +21,34 @@ def get_user_info(id, password):
     
     user_name = cursor.fetchone()
     return user_name
+
+def insert_set_and_count(user_id, set_count, rep_count):
+    sql = """
+        INSERT INTO squat_archive(
+            user_id,
+            set_count,
+            rep_count,
+            squat_date
+        )VALUES(
+            :user_id,
+            :set_count,
+            :rep_count,
+            sysdate
+        )
+    """
+
+    cursor = conn.cursor()
+    cursor.execute(sql, {"user_id" : user_id, "set_count" : set_count, "rep_count" : rep_count})
+    conn.commit()
+
+def insert_knee_angle(user_id, angles, frame):
+    sql = """
+        INSERT INTO knee_angle(
+            user_id, angles, frame, angle_date
+        )VALUES(
+            :user_id, :angles, :frame, sysdate
+        )
+    """
+    cursor = conn.cursor()
+    cursor.execute(sql, {"user_id" : user_id, "angles" : angles, "frame" : frame})
+    conn.commit()
