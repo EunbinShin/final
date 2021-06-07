@@ -182,9 +182,9 @@ QPushButton::pressed
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>200</x>
        <y>600</y>
-       <width>671</width>
+       <width>951</width>
        <height>41</height>
       </rect>
      </property>
@@ -199,6 +199,19 @@ QPushButton::pressed
         </property>
         <property name="text">
          <string>로그인하기</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="webButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>홈페이지</string>
         </property>
        </widget>
       </item>
@@ -260,8 +273,6 @@ QPushButton::pressed
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -299,8 +310,6 @@ QPushButton::pressed
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
          </font>
         </property>
         <property name="text">

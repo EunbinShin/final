@@ -6,7 +6,7 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore, uic
 import pyttsx3
 import datetime
-
+import webbrowser
 #-------------------------------------------import 구역
 import cv2
 from numpy.core.fromnumeric import mean
@@ -462,6 +462,7 @@ class MyWindow(QMainWindow, form_class):
         self.startButton.clicked.connect(self.start_btn_clicked)
         self.stopButton.clicked.connect(self.stop_btn_clicked)
         self.loginButton.clicked.connect(self.login_btn_clicked)
+        self.webButton.clicked.connect(self.web_btn_clicked)
 
         self.actiontest.triggered.connect(self.test)
 
@@ -516,6 +517,9 @@ class MyWindow(QMainWindow, form_class):
             running = False
             win = RestWindow()
             win.show()
+
+    def web_btn_clicked(self):
+        webbrowser.open('http://stackoverflow.com')
 
     def login_btn_clicked(self):
         global user_id
