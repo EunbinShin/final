@@ -13,12 +13,68 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background-color: rgb(248, 249, 252);
+	color: #000000;
+
+}
+
+
+/*-----QLabel-----*/
+QLabel
+{
+	background-color: transparent;
+	color: rgb(80, 82, 95);
+	font-size: 18px;
+
+}
+
+
+/*-----QPushButton-----*/
+QPushButton
+{
+	background-color: rgb(80,120,222);
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+	border-radius: 15px;
+	margin: 3px;
+    border-bottom: 2px solid gray;
+}
+
+QPushButton::hover
+{
+	background-color: #3457b3;
+
+}
+
+QPushButton::disabled
+{
+	background-color: #4d5770;
+
+}
+
+
+QPushButton::pressed
+{
+	background-color: #85a7ff;
+
+}
+
+
+
+
+
+</string>
+  </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>90</x>
      <y>90</y>
-     <width>233</width>
+     <width>266</width>
      <height>80</height>
     </rect>
    </property>
@@ -27,7 +83,7 @@
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="text">
@@ -39,7 +95,7 @@
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
-        <pointsize>18</pointsize>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="text">

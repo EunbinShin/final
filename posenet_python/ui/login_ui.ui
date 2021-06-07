@@ -13,6 +13,59 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background-color: rgb(248, 249, 252);
+	color: #000000;
+
+}
+
+
+/*-----QLabel-----*/
+QLabel
+{
+	background-color: transparent;
+	color: rgb(80, 82, 95);
+	font-size: 13px;
+
+}
+
+
+/*-----QPushButton-----*/
+QPushButton
+{
+	background-color: rgb(80,120,222);
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+QPushButton::hover
+{
+	background-color: #3457b3;
+
+}
+
+QPushButton::disabled
+{
+	background-color: #4d5770;
+
+}
+
+
+QPushButton::pressed
+{
+	background-color: #85a7ff;
+
+}
+
+
+
+
+
+</string>
+  </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
@@ -50,9 +103,7 @@
      <widget class="QLabel" name="login">
       <property name="font">
        <font>
-        <pointsize>19</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="text">
@@ -93,8 +144,7 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
-     <bold>true</bold>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="text">

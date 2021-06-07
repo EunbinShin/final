@@ -21,7 +21,7 @@ import time
 import argparse 
 import posenet
 #-------------------------------------------데이터베이스 접근
-import login
+#import login
 
 #-------------------------------------------youtube 주소
 url = "https://www.youtube.com/watch?v=cMkZ6A7wngk"
@@ -445,10 +445,20 @@ class MyWindow(QMainWindow, form_class):
         self.running = False
         self.stop = False
         self.setupUi(self)
-        self.setWindowTitle('Do홈트')
+        self.setWindowTitle('Do Home-T')
+        self.setWindowIcon(QtGui.QIcon('img/icon.png'))
 
-        self.refLabel.setPixmap(QtGui.QPixmap('posenet/ed.jpg'))
-        self.camLabel.setPixmap(QtGui.QPixmap('posenet/al.jpg'))
+        #####################첫 화면 사진######################
+        self.img_label = QLabel(self)
+        x, y = self.size().width(), self.size().height()
+        pixmap = QtGui.QPixmap('img/main.jpg')
+        pixmap_rect = pixmap.rect()
+        self.img_label.setGeometry(pixmap_rect)
+        self.img_label.setPixmap(pixmap)
+        self.img_label.move(int(x/3.5),int(y/4))
+        self.img_label.setStyleSheet("bor")
+        #####################첫 화면 사진######################
+
         self.startButton.clicked.connect(self.start_btn_clicked)
         self.stopButton.clicked.connect(self.stop_btn_clicked)
         self.loginButton.clicked.connect(self.login_btn_clicked)
@@ -522,6 +532,7 @@ class MyWindow(QMainWindow, form_class):
         self.startButton.setEnabled(False)
         self.stopButton.setEnabled(True)
         self.setBox.show()
+        self.img_label.setVisible(False)
 
         label_ref = self.refLabel
         th_ref = threading.Thread(target=self.run_ref, args=(label_ref,))
