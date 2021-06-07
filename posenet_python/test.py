@@ -328,11 +328,6 @@ class SuccessWindow(QDialog, success_form):
             #DB에 데이터 보냄
             login.insert_set_and_count(user_id, CUSTOM_SQUAT_SET, CUSTOM_SQUAT_COUNT)
 
-        if user_id != "":#로그인 되어있는 상태라면
-            #DB에 데이터 보냄
-            for i in range(len(knee_list)):
-                login.insert_knee_angle('eunbin', knee_list[i], i)
-
         set_flag = False
         return self.close()
 
@@ -358,10 +353,6 @@ class RestWindow(QDialog, rest_form):
         self.timer.timeout.connect(self.timeout)
         self.timer.start()
 
-        if user_id != "":#로그인 되어있는 상태라면
-            #DB에 데이터 보냄
-            for i in range(len(knee_list)):
-                login.insert_knee_angle('eunbin', knee_list[i], i)
 
         knee_list = []
 
