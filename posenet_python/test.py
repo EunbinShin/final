@@ -21,7 +21,7 @@ import time
 import argparse 
 import posenet
 #-------------------------------------------데이터베이스 접근
-#import login
+import login
 
 #-------------------------------------------youtube 주소
 url = "https://www.youtube.com/watch?v=cMkZ6A7wngk"

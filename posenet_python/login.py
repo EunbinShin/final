@@ -1,12 +1,12 @@
 import cx_Oracle as oracle
 
-oracle_dsn = oracle.makedsn(host='192.168.2.131'
+oracle_dsn = oracle.makedsn(host='52.78.190.218'
                             ,port=1521
-                            ,sid="orcl")
+                            ,sid="xe")
 
 conn = oracle.connect(dsn=oracle_dsn
-                    ,user='jyhoon94'
-                    ,password='123')
+                    ,user='team'
+                    ,password='123456')
 
 def get_user_info(id, password):
     sql = """
